@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} دسته بندی {{category.name}} {% endblock %}
+{% block comment %}
+      <div class="pages-bnaer text-center">
+         <div class="container">
+            <span>دسته بندی {{category.name}}</span>
+         </div>
+      </div>
+      <div class="container">
+         <div class="row">
+            <div class="container">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="one-slider">
+                  <h4>{{category.name}}</h4>
+                  <div class="owl-carousel owl-theme ov1">
+                  {% for product in product %}
+                     <div class="item">
+                        <figure>
+                           <a href="{% url 'vue'  product.pk %}"><img src="{{product.img.url}}" class="w-100" /></a>
+                        </figure>
+                        <h5>{{product.name}}</h5>
+                        {% if product.discount == 0 %}
+                           <br>
+                        {% else %}
+                        <div><del>{{product.price|intcomma}}</del></div>
+
+                        {% endif %}
+
+                        <span>{{product.discounted_price | intcomma }}تومان</span>
+                     </div>
+                  {% endfor %}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+         </div>
+      </div>
+{% endblock %}

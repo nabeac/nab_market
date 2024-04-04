@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}سبد خرید  {% endblock %}
+{% block comment %}
+  <style>
+    .product-image {
+      max-width: 100px;
+    }
+  </style>
+
+
+<div class="container mt-5 ">
+
+  <h2>سبد خرید</h2>
+<br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>تصویر محصول</th>
+        <th>نام محصول</th>
+        <th>قیمت</th>
+        <th>تعداد</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- اینجا می‌توانید ردیف‌های محصولات خود را اضافه کنید -->
+      {% if total_price == 0 %}
+          <h2>خالی</h2>
+      {% else %}
+    <!-- کد برای نمایش محتویات سبد خرید -->
+
+
+      {% for product_cart in product_cart %}
+      <tr>
+        <td><img src="{{product_cart.img.url}}" alt="تصویر محصول" class="product-image"></td>
+        <td>{{product_cart.name}}</td>
+        <td>{{product_cart.discounted_price | intcomma}} تومان</td>
+        <td><input type="number" value="1" min="1"></td>
+        <td>
+          <form action="{% url 'cart_del' %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-sm btn-danger" type="text" value="{{product_cart.id}}" name="product_id">
+            <input class="btn btn-sm btn-danger" type="submit" value="حذف">
+          </form>
+
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div class="text-right">
+    <h4>جمع کل:{{total_price | intcomma}} </h4>
+    <button class="btn btn-primary">پرداخت</button>
+
+    {% endif %}
+  </div>
+</div>
+
+
+<!-- بارگذاری اسکریپت‌های بوت استراپ -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

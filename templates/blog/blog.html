@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block comment %}
+      <title>Easy Shop</title>
+
+
+
+      <div class="container">
+         <div class="row">
+
+            {% for post in post %}
+            <div class="col-md-4">
+               <div class="blog-content">
+                  <figure>
+                     <img src="{{ post.img.url }}" class="w-100">
+                  </figure>
+                  <h5><i class="fa fa-title"></i>{{ post.title }}</h5>
+                  <p>{{ post.body }}</p>
+                  <ul>
+                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
+                     <li><i class="fa fa-calendar-o"></i>نوشته شده در :{{ post.c_date }}</li>
+                     <li><i class="fa fa-user-o"></i>نویسنده : {{ post.account }} </li>
+                  </ul>
+                  <a href="{% url 'post' post.pk %}" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>
+               </div>
+            </div>
+            {% endfor %}
+
+         </div>
+      </div>
+
+      <!---------------------------------->
+      <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
+      <script src="js/jquery.simple.timer.js" type="text/javascript"></script>
+      <script src="js/bootstrap.js" type="text/javascript"></script>
+      <script src="js/owl.carousel.min.js" type="text/javascript"></script>
+      <script src="js/js.js" type="text/javascript"></script>
+
+{% endblock %}
